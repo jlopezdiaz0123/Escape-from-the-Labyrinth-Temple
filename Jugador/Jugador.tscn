@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dekbkiyxdidir"]
+
+[ext_resource type="Script" path="res://Scripts/jugador.gd" id="1_xkcqg"]
+[ext_resource type="Script" path="res://Scripts/mira.gd" id="2_dm1rm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tg882"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_80db2"]
+
+[node name="Jugador" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_xkcqg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_tg882")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_80db2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mira" type="Control" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("2_dm1rm")
