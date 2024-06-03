@@ -1,9 +1,4 @@
-res://Niveles/Laberinto1.tscn
+res://Niveles/Inicio.tscn
 res://Materiales/material_muro.tres
-res://Enemigos/Malo1/malo1.tscn
-res://Scripts/Jugador.gd
-res://Scripts/_malo1.gd
-res://Scripts/malo1.gd
-res://Scripts/minimap.gd
-res://Scripts/Mira.gd
-res://Control.gd
+res://Niveles/laberintoDificil1.tscn
+res://Niveles/laberintoFacil1.tscn
