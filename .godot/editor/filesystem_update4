@@ -1,4 +1,1 @@
-res://Niveles/Inicio.tscn
-res://Materiales/material_muro.tres
-res://Niveles/laberintoDificil1.tscn
-res://Niveles/laberintoFacil1.tscn
+res://Pantallas/menuInicio.tscn

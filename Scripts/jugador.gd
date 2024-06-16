@@ -1,8 +1,10 @@
 extends CharacterBody3D
+signal colision_con_malo
+signal colision_con_cofre
 
 const VELOCIDAD = 5.0
-const VELOCIDAD_SALTO = 15.0
-
+const VELOCIDAD_SALTO = 8
+@export var start_position = Vector3.ZERO
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var movimiento_raton := Vector2.ZERO
 @onready var reproductor_pasos_jugador: AudioStreamPlayer = $pasosJugador
@@ -10,7 +12,10 @@ var movimiento_raton := Vector2.ZERO
 var estado_jugador = 0
 enum ESTADO {QUIETO, CAMINANDO, SALTANDO}
 
+var saltos_restantes = 2 
+
 func _ready() -> void:
+	start_position = global_position 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
@@ -18,8 +23,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravedad * delta
 
-	if Input.is_action_just_pressed("saltar") and is_on_floor():
+	if Input.is_action_just_pressed("saltar") and saltos_restantes > 0:
 		velocity.y = VELOCIDAD_SALTO
+		saltos_restantes -= 1
 
 	var direccion_entrada := Input.get_vector("mover_izquierda", "mover_derecha", "mover_adelante", "mover_atras")
 	var direccion := (transform.basis * Vector3(direccion_entrada.x, 0, direccion_entrada.y)).normalized()
@@ -40,10 +46,13 @@ func _physics_process(delta: float) -> void:
 	elif reproductor_pasos_jugador.playing:
 		reproductor_pasos_jugador.stop()
 
+	if is_on_floor():
+		saltos_restantes = 2 
+
 func _input(evento: InputEvent) -> void:
 	if evento is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			movimiento_raton = -evento.relative * 0.001 # Ajusta la sensibilidad del ratón según sea necesario
+			movimiento_raton = -evento.relative * 0.001 
 	if evento.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -62,3 +71,9 @@ func obtener_estado_jugador() -> int:
 		elif not is_on_floor():
 			estado = ESTADO.SALTANDO
 	return estado
+
+func _on_Area_body_entered(body):
+	if body.is_in_group("Malo1"):
+		emit_signal("colision_con_malo")
+	elif body.is_in_group("Cofre"):
+		emit_signal("colision_con_cofre", body)

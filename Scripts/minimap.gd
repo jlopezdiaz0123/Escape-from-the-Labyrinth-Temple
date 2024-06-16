@@ -4,4 +4,4 @@ extends Camera3D
 @onready var jugador = get_node(objetivo)
 
 func _process(_delta: float) -> void:
-    position = Vector3(jugador.position.x, 30, jugador.position.z)
+	position = Vector3(jugador.position.x, 30, jugador.position.z)

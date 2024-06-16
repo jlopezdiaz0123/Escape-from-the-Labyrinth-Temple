@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
-const VELOCIDAD = 5.0
+signal colision_con_jugador
+
+const VELOCIDAD = 3.0
 const VELOCIDAD_SALTO = 4.5
-const VELOCIDAD_GIRO = 2.0 # Nueva constante para velocidad al girar
+const VELOCIDAD_GIRO = 2.0 
 
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var agente_navegacion_3d: NavigationAgent3D = $NavigationAgent3D
@@ -10,21 +12,25 @@ var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var jugador: Node
 var provocado := false
-var rango_aggro := 100.0
+var rango_aggro := 25.0
 
 const RANGO_MOVIMIENTO_ALEATORIO = 20.0
 var objetivo_aleatorio = Vector3.ZERO
 var tiempo_cambio_objetivo = 0.0
 var intervalo_cambio_objetivo = 3.0
 
+var tiempo_atascado = 0.0
+var tiempo_limite_atasco = 0.25
+var ultima_posicion = Vector3.ZERO
+
 func _ready() -> void:
     reproductor_animacion.play("Animation")
-    jugador = get_tree().get_first_node_in_group("player")
+    jugador = get_tree().get_first_node_in_group("Jugador")
     if jugador == null:
         print("¡Nodo del jugador no encontrado en la escena!")
         return
     _establecer_objetivo_aleatorio()
-    agente_navegacion_3d.radius = 0.5 # Ajusta el radio de colisión si es necesario
+    agente_navegacion_3d.radius = 0.5 
 
 func _process(_delta: float) -> void:
     if jugador == null:
@@ -52,7 +58,7 @@ func _physics_process(delta: float) -> void:
     if direccion:
         var velocidad_ajustada = VELOCIDAD
         if _cerca_de_esquina():
-            velocidad_ajustada = VELOCIDAD_GIRO # Reduce la velocidad al girar
+            velocidad_ajustada = VELOCIDAD_GIRO 
         velocity.x = direccion.x * velocidad_ajustada
         velocity.z = direccion.z * velocidad_ajustada
     else:
@@ -66,21 +72,19 @@ func _physics_process(delta: float) -> void:
     else:
         _evitar_obstaculos()
 
+    _comprobar_atasco(delta)
+
 func _movimiento_aleatorio(delta: float) -> void:
     tiempo_cambio_objetivo -= delta
     if tiempo_cambio_objetivo <= 0:
         _establecer_objetivo_aleatorio()
         tiempo_cambio_objetivo = intervalo_cambio_objetivo
-    
     agente_navegacion_3d.target_position = objetivo_aleatorio
 
 func _establecer_objetivo_aleatorio() -> void:
-    var desplazamiento_aleatorio = Vector3(
-        randf_range( - RANGO_MOVIMIENTO_ALEATORIO, RANGO_MOVIMIENTO_ALEATORIO),
-        0,
-        randf_range( - RANGO_MOVIMIENTO_ALEATORIO, RANGO_MOVIMIENTO_ALEATORIO)
-    )
-    objetivo_aleatorio = global_position + desplazamiento_aleatorio
+    var x = randf_range(-RANGO_MOVIMIENTO_ALEATORIO, RANGO_MOVIMIENTO_ALEATORIO)
+    var z = randf_range(-RANGO_MOVIMIENTO_ALEATORIO, RANGO_MOVIMIENTO_ALEATORIO)
+    objetivo_aleatorio = global_position + Vector3(x, 0, z)
 
 func _mirar_al_jugador(delta: float) -> void:
     var hacia_jugador = jugador.global_position - global_position
@@ -105,6 +109,7 @@ func _evitar_obstaculos() -> void:
         var normal = resultado.normal
         velocity.x += normal.x * VELOCIDAD
         velocity.z += normal.z * VELOCIDAD
+        agente_navegacion_3d.set_target_position(global_position + normal * VELOCIDAD)
 
 func _cerca_de_esquina() -> bool:
     var inicio_rayo_izquierda = global_position - global_transform.basis.x * 0.5
@@ -127,3 +132,22 @@ func _cerca_de_esquina() -> bool:
     var resultado_derecha = estado_espacio.intersect_ray(consulta_derecha)
     
     return resultado_izquierda or resultado_derecha
+
+func _comprobar_atasco(delta: float) -> void:
+    if global_position.distance_to(ultima_posicion) < 0.1:
+        tiempo_atascado += delta
+        if tiempo_atascado > tiempo_limite_atasco:
+            _girar_para_desatascar()
+    else:
+        tiempo_atascado = 0.0
+
+    ultima_posicion = global_position
+
+func _girar_para_desatascar() -> void:
+    var nueva_direccion = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
+    velocity.x = nueva_direccion.x * VELOCIDAD
+    velocity.z = nueva_direccion.z * VELOCIDAD
+
+func _on_area_3d_body_entered(body):
+    if body.is_in_group("Jugador"):
+        emit_signal("colision_con_jugador", body)

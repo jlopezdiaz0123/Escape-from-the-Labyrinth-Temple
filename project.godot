@@ -10,11 +10,24 @@ config_version=5
 
 [application]
 
-config/name="EscapeFronLabyrinthTemple"
-run/main_scene="res://Niveles/Inicio.tscn"
+config/name="The treasure of the Labyrinth Temple"
+config/version="1.0"
+run/main_scene="res://Pantallas/menuInicio.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 run/max_fps=60
+boot_splash/image="res://Imagenes/uoc_media.png"
 config/icon="res://icon.svg"
+config/windows_native_icon="res://icon.ico"
+boot_splash/minimum_display_time=100
+
+[autoload]
+
+ControlJuego="*res://Scripts/control_juego.gd"
+Global="*res://Scripts/Global.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
 
 [display]
 
@@ -25,6 +38,13 @@ window/size/resizable=false
 [dotnet]
 
 project/assembly_name="lab"
+
+[importer_defaults]
+
+wav={
+"edit/loop_mode": 2,
+"edit/normalize": true
+}
 
 [input]
 
