@@ -12,7 +12,7 @@ var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var jugador: Node
 var provocado := false
-var rango_aggro := 50.0
+var rango_aggro := 15.0
 
 const RANGO_MOVIMIENTO_ALEATORIO = 20.0
 var objetivo_aleatorio = Vector3.ZERO
