@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cm2cxjf5lv7m4"]
+
+[ext_resource type="Texture2D" uid="uid://2but2rwr7fcc" path="res://Materiales/textura_muro.png" id="1_lubry"]
+
+[resource]
+albedo_texture = ExtResource("1_lubry")
+albedo_texture_force_srgb = true
+normal_enabled = true
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+uv1_world_triplanar = true
