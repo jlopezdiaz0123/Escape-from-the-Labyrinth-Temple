@@ -2,8 +2,8 @@ extends CharacterBody3D
 
 signal colision_con_jugador
 
-const VELOCIDAD = 3.0
-const VELOCIDAD_SALTO = 4.5
+const VELOCIDAD = 4.0
+const VELOCIDAD_SALTO = 4.0
 const VELOCIDAD_GIRO = 2.0 
 
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -12,7 +12,7 @@ var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var jugador: Node
 var provocado := false
-var rango_aggro := 5.0
+var rango_aggro := 50.0
 
 const RANGO_MOVIMIENTO_ALEATORIO = 20.0
 var objetivo_aleatorio = Vector3.ZERO
@@ -20,7 +20,7 @@ var tiempo_cambio_objetivo = 0.0
 var intervalo_cambio_objetivo = 3.0
 
 var tiempo_atascado = 0.0
-var tiempo_limite_atasco = 0.25
+var tiempo_limite_atasco = 0.10
 var ultima_posicion = Vector3.ZERO
 
 func _ready() -> void:

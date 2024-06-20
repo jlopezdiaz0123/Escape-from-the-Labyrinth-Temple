@@ -3,6 +3,8 @@ extends Node
 var dificultad = "normal"
 var con_tiempo = true
 var tiempo_inicial = 300
+var con_aceleron = true
+var pausa = false
 
 func set_dificultad(new_dificultad):
 	dificultad = new_dificultad

@@ -3,12 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/malo2.gd" id="1_iwkxu"]
 [ext_resource type="Texture2D" uid="uid://drwl2qu1mwiq" path="res://Materiales/Malos/Mutant Walking_0.png" id="1_q4g0l"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dopti"]
-size = Vector3(1.85313, 2.56354, 0.73374)
+[sub_resource type="BoxShape3D" id="BoxShape3D_mp1b2"]
+size = Vector3(2.20525, 2.56354, 0.954726)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gs5yv"]
-radius = 0.228703
-height = 2.51414
+[sub_resource type="BoxShape3D" id="BoxShape3D_jqxdg"]
+size = Vector3(1.76443, 2.47609, 0.589371)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjd03"]
 resource_name = "Detalles"
@@ -418,12 +417,12 @@ script = ExtResource("1_iwkxu")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0127338, 1.28317, 0.130256)
-shape = SubResource("BoxShape3D_dopti")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0440595, 1.28317, 0.0439436)
+shape = SubResource("BoxShape3D_mp1b2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28064, 0)
-shape = SubResource("CapsuleShape3D_gs5yv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150909, 1.25947, 0.0393906)
+shape = SubResource("BoxShape3D_jqxdg")
 
 [node name="Skeleton3D" type="Skeleton3D" parent="."]
 bones/0/name = "mixamorig_Hips"

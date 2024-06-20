@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cddf0mcftnade"]
+[gd_scene load_steps=13 format=3 uid="uid://cddf0mcftnade"]
 
 [ext_resource type="Script" path="res://Scripts/menuInicio.gd" id="1_qx0cr"]
 [ext_resource type="FontFile" uid="uid://bwiwauajgf7lg" path="res://Fuentes/FatPix-SVG.ttf" id="2_n04yf"]
 [ext_resource type="PackedScene" uid="uid://cdv4y6p8rbj1u" path="res://Personajes/maloDanzarin.tscn" id="4_s28rl"]
 [ext_resource type="Material" uid="uid://cm2cxjf5lv7m4" path="res://Materiales/material_muro.tres" id="8_3ii1j"]
+[ext_resource type="AudioStream" uid="uid://bamvjd0yiepwd" path="res://Sonido/intro_loop.wav" id="9_71icu"]
 [ext_resource type="PackedScene" uid="uid://c3tccnvr04hli" path="res://Assets/camara_movil.tscn" id="12_ewaik"]
 [ext_resource type="FontFile" uid="uid://7q57p22486x8" path="res://Fuentes/DungeonFont.ttf" id="14_qaxmf"]
 [ext_resource type="PackedScene" uid="uid://b07t7i5xmj2iv" path="res://Assets/cofre.tscn" id="15_l48wy"]
@@ -33,14 +34,14 @@ script = ExtResource("1_qx0cr")
 
 [node name="tituloJuego" type="Label" parent="."]
 layout_mode = 0
-offset_left = 219.0
-offset_right = 1617.0
+offset_left = 204.0
+offset_right = 1671.0
 offset_bottom = 403.0
 theme_override_colors/font_color = Color(0.981407, 0.102533, 0.827977, 1)
 theme_override_fonts/font = ExtResource("14_qaxmf")
 theme_override_font_sizes/font_size = 190
 text = "The treasure of the
-labyrinth temple"
+Labyrinth Temple"
 horizontal_alignment = 1
 
 [node name="BotonJugar" type="Button" parent="."]
@@ -120,7 +121,7 @@ text = "Salir"
 environment = SubResource("Environment_4vg14")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.34815e-08, -0.810257, 0.586075, 4.47727e-09, 0.586075, 0.810257, -1, 3.78552e-08, -2.18557e-08, 16.1922, 12.4644, -0.179598)
+transform = Transform3D(-4.25816e-08, -0.730699, 0.6827, 9.87381e-09, 0.6827, 0.730699, -1, 3.78552e-08, -2.18557e-08, 7.31192, 9.26935, -1.65272)
 
 [node name="ObjetosNivel" type="Node" parent="."]
 
@@ -164,7 +165,7 @@ material = ExtResource("16_r6ama")
 [node name="maloDanzarin" parent="." instance=ExtResource("12_ewaik")]
 transform = Transform3D(0.00963406, 0, 0.999954, 0, 1, 0, -0.999954, 0, 0.00963406, 4.6964, 1.15185, -1.668)
 
-[node name="Label" type="Label" parent="."]
+[node name="creditos" type="Label" parent="."]
 layout_mode = 0
 offset_left = 494.0
 offset_top = 1027.0
@@ -175,6 +176,13 @@ theme_override_font_sizes/font_size = 20
 text = "TFG VIDEOJUEGOS GRADO MULTIMEDIA DE LA UOC
 (C) JUAN MANUEL LOPEZ DIAZ , 2024"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_71icu")
+volume_db = -3.0
+autoplay = true
+max_polyphony = 6
+bus = &"BSO"
 
 [connection signal="pressed" from="BotonJugar" to="." method="_on_boton_jugar_pressed"]
 [connection signal="pressed" from="BotonOpciones" to="." method="_on_boton_opciones_pressed"]

@@ -28,7 +28,7 @@ script = ExtResource("1_une7g")
 environment = SubResource("Environment_f7qbi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0415875, -0.199538, 0.979007, 0.0468807, 0.978386, 0.201403, -0.998034, 0.0542723, -0.0313341, 5.51925, 7.48973, 0)
+transform = Transform3D(-0.0415875, -0.199538, 0.979007, 0.0468807, 0.978386, 0.201403, -0.998034, 0.0542724, -0.0313342, 5.51925, 4.27832, 0)
 
 [node name="suelo" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-07, -10, 0, 10, -4.37114e-07, 0, 0, 0, 10, -3.14033, 2.91602, -1.00761)
@@ -62,12 +62,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 882.0
-offset_top = 991.0
-offset_right = 1082.0
-offset_bottom = 1042.0
+offset_left = 876.0
+offset_top = 976.0
+offset_right = 1076.0
+offset_bottom = 1027.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.858824, 0.85098, 0.164706, 1)
 theme_override_fonts/font = ExtResource("4_hd8ba")
 theme_override_font_sizes/font_size = 42
 text = "Volver

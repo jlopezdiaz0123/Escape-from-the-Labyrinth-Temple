@@ -3,12 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://dv51j7n0am6p6" path="res://Materiales/Malos/Malo_ropa_0.png" id="1_2c0qm"]
 [ext_resource type="Script" path="res://Scripts/malo1.gd" id="1_psb4a"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8ribh"]
-size = Vector3(1.92645, 2.56354, 0.73374)
+[sub_resource type="BoxShape3D" id="BoxShape3D_npnfn"]
+size = Vector3(2.20525, 2.56354, 0.954726)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sr5t1"]
-radius = 0.228703
-height = 2.51414
+[sub_resource type="BoxShape3D" id="BoxShape3D_3gwnt"]
+size = Vector3(1.76443, 2.47609, 0.589371)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qrh0"]
 resource_name = "Detalles"
@@ -422,12 +421,12 @@ script = ExtResource("1_psb4a")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0273132, 1.28317, 0.00953007)
-shape = SubResource("BoxShape3D_8ribh")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0440595, 1.28317, 0.0439436)
+shape = SubResource("BoxShape3D_npnfn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28064, 0)
-shape = SubResource("CapsuleShape3D_sr5t1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150909, 1.25947, 0.0393906)
+shape = SubResource("BoxShape3D_3gwnt")
 
 [node name="Skeleton3D" type="Skeleton3D" parent="."]
 bones/0/name = "mixamorig_Hips"

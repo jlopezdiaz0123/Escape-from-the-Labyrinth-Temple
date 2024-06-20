@@ -2,8 +2,10 @@ extends CharacterBody3D
 signal colision_con_malo
 signal colision_con_cofre
 
-const VELOCIDAD = 5.0
+var VELOCIDAD = 5.0
 const VELOCIDAD_SALTO = 8
+var aceleron = true
+const aceleron_recarga_time = 3.0
 @export var start_position = Vector3.ZERO
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var movimiento_raton := Vector2.ZERO
@@ -15,15 +17,24 @@ enum ESTADO {QUIETO, CAMINANDO, SALTANDO}
 var saltos_restantes = 2 
 
 func _ready() -> void:
-	start_position = global_position 
+	start_position = global_position
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
+	ControlJuego.aceleron_recarga_display = aceleron
 	manejar_rotacion_camara()
-	if not is_on_floor():
+	if not is_on_floor() and not Input.is_action_just_pressed("aceleron"):
 		velocity.y -= gravedad * delta
+	
+	if Input.is_action_just_pressed("aceleron") and aceleron == true and not is_on_floor():
+		VELOCIDAD = 10
+		gravedad = 15
+		saltos_restantes -= 1
+		if Global.con_aceleron:
+			aceleron = false
+			aceleron_recarga()
 
-	if Input.is_action_just_pressed("saltar") and saltos_restantes > 0:
+	if Input.is_action_just_pressed("saltar") and saltos_restantes > 1:
 		velocity.y = VELOCIDAD_SALTO
 		saltos_restantes -= 1
 
@@ -47,7 +58,9 @@ func _physics_process(delta: float) -> void:
 		reproductor_pasos_jugador.stop()
 
 	if is_on_floor():
-		saltos_restantes = 2 
+		saltos_restantes = 2
+		VELOCIDAD = 5 
+		gravedad = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _input(evento: InputEvent) -> void:
 	if evento is InputEventMouseMotion:
@@ -77,3 +90,10 @@ func _on_Area_body_entered(body):
 		emit_signal("colision_con_malo")
 	elif body.is_in_group("Cofre"):
 		emit_signal("colision_con_cofre", body)
+		
+func aceleron_recarga():
+	var timer = get_tree().create_timer(aceleron_recarga_time)
+	timer.timeout.connect(timeout_function)
+
+func timeout_function():
+	aceleron = true

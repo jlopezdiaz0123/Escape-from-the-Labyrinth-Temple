@@ -13,6 +13,7 @@ shape = SubResource("CapsuleShape3D_80db2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80177, 0)
+cull_mask = 1048063
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -28,6 +29,7 @@ script = ExtResource("2_dm1rm")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.479805, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_80db2")
 
 [connection signal="colision_con_malo" from="." to="." method="_on_colision_con_malo"]

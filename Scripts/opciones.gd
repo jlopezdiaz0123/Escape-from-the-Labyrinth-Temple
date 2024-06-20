@@ -4,6 +4,8 @@ var boton_normal
 var boton_dificil
 var boton_con_tiempo
 var boton_sin_tiempo
+var boton_aceleron_on
+var boton_aceleron_off
 
 func _ready():
 
@@ -11,6 +13,8 @@ func _ready():
 	boton_dificil = $BotonDificil
 	boton_con_tiempo = $BotonConTiempo
 	boton_sin_tiempo = $BotonSinTiempo
+	boton_aceleron_on = $BotonRecargaAceleronON
+	boton_aceleron_off = $BotonRecargaAceleronOFF
 
 	restaurar_seleccion()
 
@@ -41,11 +45,21 @@ func _on_boton_sin_tiempo_2_pressed():
 	Global.set_con_tiempo(false)
 	actualizar_botones()
 
+func _on_boton_recarga_aceleron_on_pressed():
+	Global.con_aceleron = true
+	actualizar_botones()
+
+func _on_boton_recarga_aceleron_off_pressed():
+	Global.con_aceleron = false
+	actualizar_botones()
+
 func actualizar_botones():
 	boton_normal.modulate = Color(1, 1, 1)
 	boton_dificil.modulate = Color(1, 1, 1)
 	boton_con_tiempo.modulate = Color(1, 1, 1)
 	boton_sin_tiempo.modulate = Color(1, 1, 1)
+	boton_aceleron_on.modulate = Color(1, 1, 1)
+	boton_aceleron_off.modulate = Color(1, 1, 1)
 
 	match Global.dificultad:
 		"normal":
@@ -57,6 +71,11 @@ func actualizar_botones():
 		boton_con_tiempo.modulate = Color(1, 1, 0)
 	else:
 		boton_sin_tiempo.modulate = Color(1, 1, 0)
+
+	if Global.con_aceleron:
+		boton_aceleron_on.modulate = Color(1, 1, 0)
+	else:
+		boton_aceleron_off.modulate = Color(1, 1, 0)
 
 func restaurar_seleccion():
 	actualizar_botones()

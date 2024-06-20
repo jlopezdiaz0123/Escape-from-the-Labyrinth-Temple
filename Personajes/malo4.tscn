@@ -3,8 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/malo4.gd" id="1_67yse"]
 [ext_resource type="Texture2D" uid="uid://lo8wicujvxwd" path="res://Materiales/Malos/Rmalo4_0.png" id="1_njifu"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wmpeq"]
-size = Vector3(1.92645, 2.56354, 0.73374)
+[sub_resource type="BoxShape3D" id="BoxShape3D_j88jo"]
+size = Vector3(2.20525, 2.56354, 0.954726)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r71ao"]
+size = Vector3(1.76443, 2.47609, 0.589371)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tn3lo"]
 resource_name = "Detalles"
@@ -411,18 +414,18 @@ _data = {
 "Animation": SubResource("Animation_0tg01")
 }
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rxhu0"]
-radius = 0.228703
-height = 2.51414
-
 [node name="Malo4" type="CharacterBody3D" groups=["Malotes"]]
 script = ExtResource("1_67yse")
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0273132, 1.28317, 0.00953007)
-shape = SubResource("BoxShape3D_wmpeq")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0440595, 1.28317, 0.0439436)
+shape = SubResource("BoxShape3D_j88jo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150909, 1.25947, 0.0393906)
+shape = SubResource("BoxShape3D_r71ao")
 
 [node name="Skeleton3D" type="Skeleton3D" parent="."]
 bones/0/name = "mixamorig_Hips"
@@ -650,10 +653,6 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 libraries = {
 "": SubResource("AnimationLibrary_jxh5x")
 }
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28064, 0)
-shape = SubResource("CapsuleShape3D_rxhu0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
